@@ -1,7 +1,7 @@
 # Primer Procesador SPARC V8 Monociclo
 ### Realizado por: Juan Camilo Castaño & Jorge Mario Gil
 
-![Esquema del Procesador](/Procesador.png)
+![Esquema del Procesador](/Procesador1/Procesador.png)
 
 ## Arquitectura de Computadores 
   ### MSc. Jhon Osorio 
