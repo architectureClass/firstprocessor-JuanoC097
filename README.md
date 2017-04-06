@@ -24,7 +24,7 @@ El procesador realizará unicamente las operaciones de (SUB y ADD), y algunas op
 # Segundo Procesador SPARC V8 Monociclo
 ### Realizado por: Juan Camilo Castaño & Jorge Mario Gil
 
-![Esquema del Procesador](/Procesador1/Procesador2.png)
+![Esquema del Procesador](/Procesador2/Procesador2.png)
 
 Construcción del primer procesador en la materia Arquitectura de Computadores, con los 8 Componentes necesarios para este.
 
