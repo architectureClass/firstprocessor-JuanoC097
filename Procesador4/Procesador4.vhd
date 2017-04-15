@@ -32,6 +32,21 @@ architecture arq_Procesador4 of Procesador4 is
 			  );
 	end component;
 	
+	component Windows_Manager
+		Port (
+				Rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
+            Rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
+            Rd : in  STD_LOGIC_VECTOR (4 downto 0);
+			   CWP : in STD_LOGIC_VECTOR (4 downto 0); -- Current Windows Pointer
+	 		   Op3 : in  STD_LOGIC_VECTOR (5 downto 0);
+            Op : in  STD_LOGIC_VECTOR (1 downto 0);
+			   nCWP : out STD_LOGIC_VECTOR (4 downto 0);
+			   nRs1 : out  STD_LOGIC_VECTOR (5 downto 0);
+            nRs2 : out  STD_LOGIC_VECTOR (5 downto 0);
+            nRd : out  STD_LOGIC_VECTOR (5 downto 0)
+			  );
+	end component;
+	
 	component Control_Unit
 		Port ( Op3 : in  STD_LOGIC_VECTOR (5 downto 0);
 				 Op : in  STD_LOGIC_VECTOR (1 downto 0);
@@ -41,9 +56,9 @@ architecture arq_Procesador4 of Procesador4 is
 	
 	component Register_File
 		Port ( --clk : in STD_LOGIC;
-			    Rs1 : in  STD_LOGIC_VECTOR (4 downto 0);
-             Rs2 : in  STD_LOGIC_VECTOR (4 downto 0);
-             Rd : in  STD_LOGIC_VECTOR (4 downto 0);
+			    Rs1 : in  STD_LOGIC_VECTOR (5 downto 0);
+             Rs2 : in  STD_LOGIC_VECTOR (5 downto 0);
+             Rd : in  STD_LOGIC_VECTOR (5 downto 0);
              Reset : in  STD_LOGIC;
 			    EnableWriting : in STD_LOGIC;
              DWR : in  STD_LOGIC_VECTOR (31 downto 0);
@@ -77,6 +92,8 @@ architecture arq_Procesador4 of Procesador4 is
 	
 	component Program_State_Register
 		Port ( NZVC : in  STD_LOGIC_VECTOR (3 downto 0);
+			    nCWP : in  STD_LOGIC_VECTOR (4 downto 0);
+			    CWP : out  STD_LOGIC_VECTOR (4 downto 0);
              C : out  STD_LOGIC
 			   );
 	end component;
@@ -95,6 +112,9 @@ architecture arq_Procesador4 of Procesador4 is
 	signal DataBus_nPC_PC, DataBus_PC_IM : std_logic_vector(31 downto 0); -- Señales PC y nPC
 	
 	signal DataBus_Instruction : std_logic_vector(31 downto 0); -- Señales Instruction memory
+	
+	signal DataBus_CWP, DataBus_nCWP : std_logic_vector(4 downto 0); -- Señales Windows Manager
+	signal DataBus_nRs1, DataBus_nRs2, DataBus_nRd : std_logic_vector(5 downto 0); -- Señales Windows Manager
 	
 	signal DataBus_CU_ALU : std_logic_vector(5 downto 0); -- Señales Control unit
 	
@@ -144,6 +164,20 @@ begin
 				Instruction_Out => DataBus_Instruction
 			);
 	
+	WM : Windows_Manager
+		Port Map (
+				Rs1 => DataBus_Instruction(18 downto 14),
+            Rs2 => DataBus_Instruction(4 downto 0),
+            Rd => DataBus_Instruction(29 downto 25),
+			   CWP => DataBus_CWP,
+	 		   Op3 => DataBus_Instruction(24 downto 19),
+            Op => DataBus_Instruction(31 downto 30),
+			   nCWP => DataBus_nCWP,
+			   nRs1 => DataBus_nRs1,
+            nRs2 => DataBus_nRs2,
+            nRd => DataBus_nRd
+			);
+	
 	CU : Control_Unit
 		Port Map (
 				Op3 => DataBus_Instruction(24 downto 19),
@@ -154,9 +188,9 @@ begin
 	RF : Register_File
 		Port Map (
 				--clk => clk,
-				Rs1 => DataBus_Instruction(18 downto 14),
-				Rs2 =>  DataBus_Instruction(4 downto 0),
-				Rd =>  DataBus_Instruction(29 downto 25),
+				Rs1 => DataBus_nRs1,
+				Rs2 => DataBus_nRs2,
+				Rd => DataBus_nRd,
 				Reset => Reset,
 				EnableWriting => '1',
 				DWR => DataBus_ALUResult,
@@ -190,6 +224,8 @@ begin
 	PSR : Program_State_Register
 		Port Map (
 				NZVC => DataBus_NZVC,
+				nCWP => DataBus_nCWP,
+				CWP => DataBus_CWP,
             C => DataBus_C
 			);
 	
