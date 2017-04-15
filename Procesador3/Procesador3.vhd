@@ -66,10 +66,26 @@ architecture arq_Procesador3 of Procesador3 is
 			  );
 	end component;
 	
+	component Program_State_Register_Modifier
+		Port ( ALUOP : in  STD_LOGIC_VECTOR (5 downto 0);
+             OP1_ALU : in  STD_LOGIC_VECTOR (31 downto 0);
+             OP2_ALU : in  STD_LOGIC_VECTOR (31 downto 0);
+             Result_ALU : in  STD_LOGIC_VECTOR (31 downto 0);
+             NZVC : out  STD_LOGIC_VECTOR (3 downto 0)
+				);
+	end component;
+	
+	component Program_State_Register
+		Port ( NZVC : in  STD_LOGIC_VECTOR (3 downto 0);
+             C : out  STD_LOGIC
+			   );
+	end component;
+	
 	component Arithmetic_Logic_Unit
 		Port ( Op1 : in  STD_LOGIC_VECTOR (31 downto 0);
              Op2 : in  STD_LOGIC_VECTOR (31 downto 0);
              ALUOP : in  STD_LOGIC_VECTOR (5 downto 0);
+				 C : in  STD_LOGIC;
              ALUResult : out  STD_LOGIC_VECTOR (31 downto 0)
 			  );
 	end component;
@@ -87,6 +103,10 @@ architecture arq_Procesador3 of Procesador3 is
 	signal DataBus_SEU_MUX : std_logic_vector(31 downto 0); -- Señales Signal Extend Unit
 	
 	signal DataBus_MUX_ALU : std_logic_vector(31 downto 0); -- Señales Signal Extend Unit
+	
+	signal DataBus_NZVC : std_logic_vector(3 downto 0); -- Señales Program State Register Modifier
+	
+	signal DataBus_C : std_logic; -- Señales Program State Register
 	
 	signal DataBus_ALUResult : std_logic_vector(31 downto 0); -- Señales ALU
 	
@@ -158,11 +178,27 @@ begin
 				DataOut => DataBus_MUX_ALU
 			);
 	
+	PSR_Modifier : Program_State_Register_Modifier
+		Port Map (
+				ALUOP => DataBus_CU_ALU,
+            OP1_ALU => DataBus_RF_ALU_CRs1,
+            OP2_ALU => DataBus_MUX_ALU,
+            Result_ALU => DataBus_ALUResult,
+            NZVC => DataBus_NZVC
+			);
+	
+	PSR : Program_State_Register
+		Port Map (
+				NZVC => DataBus_NZVC,
+            C => DataBus_C
+			);
+	
 	ALU : Arithmetic_Logic_Unit
 		Port Map (
 				Op1 => DataBus_RF_ALU_CRs1,
 				Op2 => DataBus_MUX_ALU,
 				ALUOP => DataBus_CU_ALU,
+				C => DataBus_C,
 				ALUResult => DataBus_ALUResult
 			);
 	
