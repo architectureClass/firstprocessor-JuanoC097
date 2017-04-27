@@ -26,8 +26,8 @@ begin
 						ALUOP <= "000000";
 					when "010000" => -- ADDcc
 						ALUOP <= "010000";
-					when "001000" => -- ADDx
-						ALUOP <= "001000";
+					when "011000" => -- ADDx
+						ALUOP <= "011000";
 					when "000100" => -- SUB
 						ALUOP <= "000100";
 					when "010100" => -- SUBcc

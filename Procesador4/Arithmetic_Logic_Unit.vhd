@@ -21,7 +21,9 @@ begin
 				ALUResult <= Op1 + Op2;
 			when "010000" => -- ADDcc
 				ALUResult <= Op1 + Op2;
-			when "001000" => -- ADDx
+			when "001000" => -- ADDX
+				ALUResult <= Op1 + Op2 + C;
+			when "011000" => -- ADDXcc
 				ALUResult <= Op1 + Op2 + C;
 			when "000100" => -- Sub
 				ALUResult <= Op1 - Op2;

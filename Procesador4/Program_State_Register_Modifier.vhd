@@ -16,7 +16,7 @@ begin
 	process(ALUOP, OP1_ALU, OP2_ALU, Result_ALU)
 	begin
 	
-		if(ALUOP = "010000") then	-- ADDcc
+		if(ALUOP = "010000" or ALUOP = "011000") then	-- ADDcc or ADDXcc
 		
 			NZVC(3) <= Result_ALU(31); ---> bit negative
 			
