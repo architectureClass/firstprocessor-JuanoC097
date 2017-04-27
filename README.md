@@ -26,7 +26,7 @@ El procesador realizará unicamente las operaciones de (SUB y ADD), y algunas op
 
 ![Esquema del Procesador](/Procesador2/Procesador2.png)
 
-Construcción del primer procesador en la materia Arquitectura de Computadores, con los 8 Componentes necesarios para este.
+Construcción del segundo procesador en la materia Arquitectura de Computadores, con los 8 Componentes necesarios para este.
 
   * [Program Counter y Next Program Counter](/Procesador2/Program_Counter.vhd)
   * [Adder](/Procesador2/Adder.vhd)
@@ -36,3 +36,21 @@ Construcción del primer procesador en la materia Arquitectura de Computadores, 
   * [Arithmetic Logic Unit (ALU)](/Procesador2/Arithmetic_Logic_Unit.vhd)
   * [Signal Extend Unit (SEU)](/Procesador2/Signal_Extend_Unit.vhd)
   * [Multiplexor (MUX)](/Procesador2/Multiplexor.vhd)
+
+# Tercer Procesador SPARC V8 Monociclo
+### Realizado por: Juan Camilo Castaño & Jorge Mario Gil
+
+![Esquema del Procesador](/Procesador3/Procesador3.png)
+
+Construcción del tercer procesador en la materia Arquitectura de Computadores, con los 10 Componentes necesarios para este.
+
+  * [Program Counter y Next Program Counter](/Procesador3/Program_Counter.vhd)
+  * [Adder](/Procesador3/Adder.vhd)
+  * [Instruction Memory](/Procesador3/Instruction_Memory.vhd)
+  * [Register File](/Procesador3/Register_File.vhd)
+  * [Control Unit](/Procesador3/Control_Unit.vhd)
+  * [Arithmetic Logic Unit (ALU)](/Procesador3/Arithmetic_Logic_Unit.vhd)
+  * [Signal Extend Unit (SEU)](/Procesador3/Signal_Extend_Unit.vhd)
+  * [Multiplexor (MUX)](/Procesador3/Multiplexor.vhd)
+  * [Procesor State Register (PSR)](/Procesador3/Procesor_State_Register.vhd)
+  * [Procesor State Register Modifier (PSR_M)](/Procesador3/Procesor_State_Register_Modifier.vhd)
