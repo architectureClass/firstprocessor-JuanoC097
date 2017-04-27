@@ -52,5 +52,5 @@ Construcción del tercer procesador en la materia Arquitectura de Computadores, 
   * [Arithmetic Logic Unit (ALU)](/Procesador3/Arithmetic_Logic_Unit.vhd)
   * [Signal Extend Unit (SEU)](/Procesador3/Signal_Extend_Unit.vhd)
   * [Multiplexor (MUX)](/Procesador3/Multiplexor.vhd)
-  * [Procesor State Register (PSR)](/Procesador3/Procesor_State_Register.vhd)
-  * [Procesor State Register Modifier (PSR_M)](/Procesador3/Procesor_State_Register_Modifier.vhd)
+  * [Program State Register (PSR)](/Procesador3/Program_State_Register.vhd)
+  * [Program State Register Modifier (PSR_M)](/Procesador3/Program_State_Register_Modifier.vhd)
